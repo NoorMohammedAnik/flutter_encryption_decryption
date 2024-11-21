@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:encrypt/encrypt.dart' as encrypt;
+import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -16,8 +16,8 @@ class _HomePageState extends State<HomePage> {
 
   // AES Encryption Key and IV
   final initVector = encrypt.IV.fromLength(16);
-  final encrypter = encrypt.Encrypter(encrypt.AES(encrypt.Key.fromUtf8('16characterslong')));
-
+  final encrypter =
+      encrypt.Encrypter(encrypt.AES(encrypt.Key.fromUtf8('16characterslong')));
 
   //encryption
   void convertToEncryptedText() {
@@ -48,70 +48,90 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blue,
-        title: Text("Encryption",style: TextStyle(
+        title: const Text("Encryption",style: TextStyle(
           color: Colors.white
         ),),
       ),
 
       body: Column(
         children: [
+          const SizedBox(
+            height: 20,
+          ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextField(
               controller: textController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 border: OutlineInputBorder(),
                 labelText: 'Enter Text',
               ),
             ),
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
 
 
 
+          //button
           ElevatedButton(
+            style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.blue,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0))),
             onPressed: ()
             {
 
               //call to function
               convertToEncryptedText();
             },
-            child: Text('Encrypt'),
+            child: const Text(
+              'Encrypt',
+              style: TextStyle(color: Colors.white),
+            ),
           ),
 
 
 
 
+          //encrypted text
           if (encryptedText != null) ...[
-            SizedBox(height: 20),
-            Text(
+            const SizedBox(height: 20),
+            const Text(
               'Encrypted Text:',
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
             Text(encryptedText!),
           ],
-          SizedBox(height: 20),
+
+
+          const SizedBox(height: 20),
 
 
           //button
           if (encryptedText != null) ...[
             ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.blue,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0))),
               onPressed: convertToDecryptedText,
-              child: Text('Decrypt'),
+              child: const Text(
+                'Decrypt',
+                style: TextStyle(color: Colors.white),
+              ),
             )
           ],
 
 
-          //text
+          //decrypted text
           if (decryptedText != null) ...[
-            SizedBox(height: 20),
-            Text(
+            const SizedBox(height: 20),
+            const Text(
               'Decrypted Text:',
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
